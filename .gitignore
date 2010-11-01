@@ -4,3 +4,6 @@ assn3_part3
 assn3_part4
 *.o
 *.hi
+*~
+*.swp
+*.out
