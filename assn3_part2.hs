@@ -21,9 +21,6 @@ partTwoOutput track = do
 intListCubed :: String -> IO [[[Int]]]
 intListCubed = readIO
 
-
-
-
 -- YOUR CODE SHOULD COME AFTER THIS POINT
 
 -- yourMain
