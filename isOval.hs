@@ -3,15 +3,23 @@ import List
 
 --isOval list = (take (length (fixed list) `div` 2) (fixed list)) == (reverse (take (length (fixed list) `div` 2) (reverse (fixed list))))
 
---isOval list 
+isOval list = fourthSide myList == secondSide myList && firstSide myList == thirdSide myList 
+	where myList = fixed list
 -- need something that errors on empty lists or lists with less than 4 curves (0).
 
-thirdSide list = take ((positionSecondZero list)+1) (drop (positionThirdZero list) list)
+fourthSide list = take (positionFirstZero list4) list4
+	where list4 = (drop (positionThirdZero list) list)
 
-secondSide list = take ( (drop (positionSecondZero list) list)
+thirdSide list = take (positionFirstZero list34) list34
+	where list34 = (drop (positionSecondZero list) list)
+
+secondSide list = take  (positionFirstZero list234) list234
+	where list234 = (drop (positionFirstZero list) list)
 
 firstSide list = take (positionFirstZero list) list 
 
+--since lists are adjusted, p4thZero should also equal `length list` and 
+-- also not really needed anywhere ...yet?
 positionFourthZero [] = 0
 positionFourthZero list = (positionFirstZero list) + (positionFirstZero (drop (positionFirstZero list) list)) + (positionFirstZero (drop (positionSecondZero list) list)) + (positionFirstZero (drop (positionThirdZero list) list))
 
