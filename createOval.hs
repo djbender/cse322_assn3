@@ -2,6 +2,8 @@ import Prelude
 import List
 import Data.List
 
+--I should probably just do the grunt work myself
+{-
 createOval list = createOval_ (permutations (tail (subsequences list)))
 
 createOval_ list
@@ -12,6 +14,17 @@ createOval_ list
 
 delist :: [a] -> a
 delist [list] = list
+-}
+
+hasFourTurns list 
+	|(length myList) == 4 = True
+	| otherwise = error "list doesn't have four sides"
+	where myList = [x | x <- list, x == 0]
+
+hasAtLeastFourTurns list
+	| (length myList) >= 4 = True
+	| otherwise = error "list doesn't have at least four sides"
+	where myList = [x | x <- list, x == 0]
 
 -----------
 --isOval.hs
