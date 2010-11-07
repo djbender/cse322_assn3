@@ -15,6 +15,10 @@ createOval_ list
 delist :: [a] -> a
 delist [list] = list
 -}
+evenStraights [] = error"evenStraights: list was empty\n"
+evenStraights list
+	| hasEvenStraights list = list
+	| otherwise 
 
 hasEvenStraights [] = error "hasEvenStraights: list was empty\n"
 hasEvenStraights list = even (length myList) 
