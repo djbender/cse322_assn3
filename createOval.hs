@@ -1,6 +1,6 @@
 import Prelude
 import List
-import Data.List
+--import Data.List
 
 --I should probably just do the grunt work myself
 {-
@@ -16,14 +16,18 @@ delist :: [a] -> a
 delist [list] = list
 -}
 
+hasEvenStraights [] = error "hasEvenStraights: list was empty\n"
+hasEvenStraights list = even (length myList) 
+	where myList = [x | x <- list, x == 1]
+
 hasFourTurns list 
 	|(length myList) == 4 = True
-	| otherwise = error "list doesn't have four sides"
+	| otherwise = error "hasFourTurns: list doesn't have four sides\n"
 	where myList = [x | x <- list, x == 0]
 
 hasAtLeastFourTurns list
 	| (length myList) >= 4 = True
-	| otherwise = error "list doesn't have at least four sides"
+	| otherwise = error "hasAtLeastFourTurns: list doesn't have at least four side\ns"
 	where myList = [x | x <- list, x == 0]
 
 -----------
