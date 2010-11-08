@@ -1,38 +1,30 @@
 import Prelude
 import List
---import Data.List
 
---I should probably just do the grunt work myself
-{-
-createOval list = createOval_ (permutations (tail (subsequences list)))
-
-createOval_ list
---	| isOval (head list) = (head list)
-	| isOval list = list
-	| otherwise = createOval_ (tail list)
-
-
-delist :: [a] -> a
-delist [list] = list
--}
-evenStraights [] = error"evenStraights: list was empty\n"
+--TODO:
+--needs to return a real track list, not heads
+evenStraights [] = error "evenStraights: list was empty\n"
 evenStraights list
 	| hasEvenStraights list = list
-	| otherwise 
+	| otherwise = removeOneStraight list
+	where removeOneStraight mylist
+		| head myList == 1 = reverse (tail myList)
+		| otherwise = removeOneStraight (tail myList)
+		where myList = reverse list
 
 hasEvenStraights [] = error "hasEvenStraights: list was empty\n"
 hasEvenStraights list = even (length myList) 
-	where myList = [x | x <- list, x == 1]
+	where myList = [x | x <- (map head list), x == 1]
 
 hasFourTurns list 
 	|(length myList) == 4 = True
 	| otherwise = error "hasFourTurns: list doesn't have four sides\n"
-	where myList = [x | x <- list, x == 0]
+	where myList = [x | x <- (map head list), x == 0]
 
 hasAtLeastFourTurns list
 	| (length myList) >= 4 = True
 	| otherwise = error "hasAtLeastFourTurns: list doesn't have at least four side\ns"
-	where myList = [x | x <- list, x == 0]
+	where myList = [x | x <- (map head list), x == 0]
 
 -----------
 --isOval.hs
@@ -78,3 +70,22 @@ firsts list = map head list
 readjust (x:xs)  
 	| x == 0 = (xs ++ [x]) --one last time
 	| otherwise = readjust (xs ++ [x])
+
+-------------
+--OLD STUFF--
+-------------
+
+--import Data.List
+--I should probably just do the grunt work myself
+{-
+createOval list = createOval_ (permutations (tail (subsequences list)))
+
+createOval_ list
+--	| isOval (head list) = (head list)
+	| isOval list = list
+	| otherwise = createOval_ (tail list)
+
+
+delist :: [a] -> a
+delist [list] = list
+-}
