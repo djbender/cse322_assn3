@@ -3,14 +3,14 @@ import List
 
 --TODO:
 --needs to return a real track list, not heads
-evenStraights [] = error "evenStraights: list was empty\n"
-evenStraights list
+makeEvenStraights [] = error "evenStraights: list was empty\n"
+makeEvenStraights list
 	| hasEvenStraights list = list
 	| otherwise = removeOneStraight list
-	where removeOneStraight mylist
-		| head myList == 1 = reverse (tail myList)
-		| otherwise = removeOneStraight (tail myList)
-		where myList = reverse list
+	where removeOneStraight list
+		| head myList == 1 = tail list
+		| otherwise = removeOneStraight (tail list)
+		where myList = map head list
 
 hasEvenStraights [] = error "hasEvenStraights: list was empty\n"
 hasEvenStraights list = even (length myList) 
