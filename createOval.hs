@@ -3,6 +3,8 @@ import List
 
 --TODO:
 --needs to return a real track list, not heads
+--createList list = 
+
 makeEvenStraights [] = error "evenStraights: list was empty\n"
 makeEvenStraights list
 	| hasEvenStraights list = list
