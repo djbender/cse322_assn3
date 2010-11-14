@@ -4,6 +4,13 @@ import List
 --TODO:
 --needs to return a real track list, not heads
 --createList list = 
+--	| (hasEvenStraights == true) && (hasFourTurns == True) = 
+
+arrangePieces [] = error "arrangePieces: list was empty'n"
+arrangePieces list = concat
+
+	where myList = map head list
+
 
 makeEvenStraights [] = error "evenStraights: list was empty\n"
 makeEvenStraights list
@@ -19,13 +26,15 @@ hasEvenStraights list = even (length myList)
 	where myList = [x | x <- (map head list), x == 1]
 
 hasFourTurns list 
-	|(length myList) == 4 = True
-	| otherwise = error "hasFourTurns: list doesn't have four sides\n"
+	| (length myList) == 4 = True
+--	| otherwise = error "hasFourTurns: list doesn't have four sides\n"
+	| otherwise = False
 	where myList = [x | x <- (map head list), x == 0]
 
 hasAtLeastFourTurns list
 	| (length myList) >= 4 = True
-	| otherwise = error "hasAtLeastFourTurns: list doesn't have at least four side\ns"
+--	| otherwise = error "hasAtLeastFourTurns: list doesn't have at least four side\ns"
+	| otherwise = False
 	where myList = [x | x <- (map head list), x == 0]
 
 -----------
