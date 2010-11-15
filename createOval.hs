@@ -3,42 +3,49 @@ import List
 
 --TODO:
 --needs to return a real track list, not heads
---createList list = 
+createList list 
+	| hasEvenStraights list == False =  createList (makeEvenStraights list)
+	| hasFourTurns list == False = createList (makeFourTurns list)
+	| otherwise = weaveStraights list
+--	| hasweaveStraights (arrangePieces list)
 --	| (hasEvenStraights == true) && (hasFourTurns == True) = 
 
 
-weaveStraights list = _wS myList amount
+weaveStraights list 
+	| even (length (getStraights list) `div` 2) = _wSeven myList 4 chunk
+	| otherwise = _wSodd myList 4 chunk 
 	where 
 		myList = arrangePieces list
-		amount = length (drop 4 myList)
+		chunk = length (getStraights list) `div` 4
 
-_wS list 0 = list
---_wS list 1 = error "_wS: n cannot be 1.\n"
-_wS list n
-	| n == 4 = _wS (insertAt a b (positionFourthZero list)) (n-1)
-	| n == 3 = _wS (insertAt a b (positionSecondZero list)) (n-1)
-	| n == 2 = _wS (insertAt a b (positionThirdZero list)) (n-1)
-	| n == 1 = _wS (insertAt a b (positionFirstZero list)) (n-1)
+
+_wSeven list 0 _ = list
+_wSeven list n chunk --
+	| n == 4 = _wSeven (insertAt a b (positionFourthZero myList)) (n-1) chunk
+	| n == 3 = _wSeven (insertAt a b (positionSecondZero myList)) (n-1) chunk
+	| n == 2 = _wSeven (insertAt a b (positionThirdZero myList)) (n-1) chunk
+	| n == 1 = _wSeven (insertAt a b (positionFirstZero myList)) (n-1) chunk
 	where
 		a = reverse (take chunk (reverse list))
 		b = reverse (drop chunk (reverse list))
-		chunk = length (getCurves list) `div` 4
---_wS list n 
---	| 
+		myList = firsts list
 
-{-
-weaveStraights x [] = x
-weaveStraights x y = weaveStraights (trackInsert x t2y) d2y
+_wSodd list 0 _ = list
+_wSodd list n chunk --
+	| n == 4 = _wSodd (insertAt a b (positionFourthZero myList)) (n-1) chunk
+	| n == 3 = _wSodd (insertAt a b (positionSecondZero myList)) (n-1) chunk
+	| n == 2 = _wSodd (insertAt aa bb (positionThirdZero myList)) (n-1) chunk
+	| n == 1 = _wSodd (insertAt aa bb (positionFirstZero myList)) (n-1) chunk
 	where
-		t2y = take 2 y
-		d2y = drop 2 y
--}
-
-
+		a = reverse (take chunk (reverse list))
+		b = reverse (drop chunk (reverse list))
+		aa = reverse (take (chunk+1) (reverse list))
+		bb = reverse (drop (chunk+1) (reverse list))
+		myList = firsts list
 
 --insertAt :: a -> [a] -> Int -> [a]
 --insertAt x xs (n+1) = let (ys,zs) = splitAt xs n in ys++x:zs
-insertAt x xs n = take (n-1) xs ++ x ++ drop (n-1) xs
+insertAt x xs n = take (n) xs ++ x ++ drop (n) xs
 
 --aranges pieces. curves first, with all straights following
 arrangePieces :: (Num a) => [[a]] -> [[a]]
@@ -71,6 +78,14 @@ makeEvenStraights list
 hasEvenStraights [] = error "hasEvenStraights: list was empty\n"
 hasEvenStraights list = even (length myList) 
 	where myList = [x | x <- (map head list), x == 1]
+
+makeFourTurns list
+	| hasFourTurns list = list
+	| otherwise = makeFourTurns (removeOneCurve list)
+	where removeOneCurve list
+		| head myList == 0 = tail list
+		| otherwise =  removeOneCurve (tail list)
+		where myList = map head list
 
 hasFourTurns list 
 	| (length myList) == 4 = True
