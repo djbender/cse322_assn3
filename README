@@ -1,0 +1,2 @@
+simply compile:
+$ ghc assn3_partX.hs -o ass3_partX.out

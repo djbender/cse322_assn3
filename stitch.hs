@@ -1,6 +1,49 @@
 import Prelude
 import List
 
+stitch list1 list2
+	| (isOval list1 && isOval list2) = doStitch (readjust list1) (readjust list2)
+	| otherwise = []
+
+doStitch list1 list2
+	| l1 list1 == l1 list2 = dropFirstSide list1 ++ dropFirstSide list2
+	| l1 list1 == l2 list2 = dropFirstSide list1 ++ drop (positionSecondZero (readjust (map head list2 
+	| l1 list1 == l3 list2 = dropFirstSide list1 ++
+	| l1 list1 == l4 list2 = dropFirstSide list1 ++
+	| l2 list1 == l1 list2 = [5]
+	| l2 list1 == l2 list2 = [6]
+	| l2 list1 == l3 list2 = [7]
+	| l2 list1 == l4 list2 = [8]
+	| l3 list1 == l1 list2 = [9]
+	| l3 list1 == l2 list2 = [10]
+	| l3 list1 == l3 list2 = [11]
+	| l3 list1 == l4 list2 = [12]
+	| l4 list1 == l1 list2 = [13]
+	| l4 list1 == l2 list2 = [14]
+	| l4 list1 == l3 list2 = [15]
+	| l4 list1 == l4 list2 = [16] -}
+	where
+		l1 mylist = length (firstSide (readjust (map head mylist)))
+		l2 mylist = length (secondSide (readjust (map head mylist)))
+		l3 mylist = length (thirdSide (readjust (map head mylist)))
+		l4 mylist = length (fourthSide (readjust (map head mylist)))
+		heads list = map head list
+
+dropFirstSide list = drop (positionFirstZero (readjust (map head list))) (init list)
+
+dropSecondSide list = 
+	where a = take (positionSecondZero (readjust (map head list))) list
+
+dropThirdSide list
+
+dropFourthSide list
+
+{-dropTrackSide list n 
+	| n == 1 = :
+	| n == 2
+	| n == 3
+	| n == 4
+-}
 ----------------
 --creatOval.hs--
 ----------------
