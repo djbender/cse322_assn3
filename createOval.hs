@@ -6,10 +6,24 @@ import List
 --createList list = 
 --	| (hasEvenStraights == true) && (hasFourTurns == True) = 
 
-arrangePieces [] = error "arrangePieces: list was empty'n"
-arrangePieces list = concat
 
-	where myList = map head list
+--aranges pieces. curves first, with all straights following
+arrangePieces :: (Num a) => [[a]] -> [[a]]
+arrangePieces [] = error "arrangePieces: list was empty\n"
+arrangePieces list = curves++straights
+	where 
+		curves = [x | x <- list, head x == 0] 
+		straights = [x | x <- list, head x == 1]
+
+--returns a list of just curves
+getCurves :: (Num a) => [[a]] -> [[a]]
+getCurves [] = error "getCurves: list was empty\n"
+getCurves list = [x | x <- list, head x == 0]
+
+--returns a list of just straights
+getStraights :: (Num a) => [[a]] -> [[a]]
+getStraights [] = error "getStraights: list was empty\n"
+getStraights list = [x | x <- list, head x == 1]
 
 
 makeEvenStraights [] = error "evenStraights: list was empty\n"
