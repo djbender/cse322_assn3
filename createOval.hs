@@ -7,6 +7,39 @@ import List
 --	| (hasEvenStraights == true) && (hasFourTurns == True) = 
 
 
+weaveStraights list = _wS myList amount
+	where 
+		myList = arrangePieces list
+		amount = length (drop 4 myList)
+
+_wS list 0 = list
+--_wS list 1 = error "_wS: n cannot be 1.\n"
+_wS list n
+	| n == 4 = _wS (insertAt a b (positionFourthZero list)) (n-1)
+	| n == 3 = _wS (insertAt a b (positionSecondZero list)) (n-1)
+	| n == 2 = _wS (insertAt a b (positionThirdZero list)) (n-1)
+	| n == 1 = _wS (insertAt a b (positionFirstZero list)) (n-1)
+	where
+		a = reverse (take chunk (reverse list))
+		b = reverse (drop chunk (reverse list))
+		chunk = length (getCurves list) `div` 4
+--_wS list n 
+--	| 
+
+{-
+weaveStraights x [] = x
+weaveStraights x y = weaveStraights (trackInsert x t2y) d2y
+	where
+		t2y = take 2 y
+		d2y = drop 2 y
+-}
+
+
+
+--insertAt :: a -> [a] -> Int -> [a]
+--insertAt x xs (n+1) = let (ys,zs) = splitAt xs n in ys++x:zs
+insertAt x xs n = take (n-1) xs ++ x ++ drop (n-1) xs
+
 --aranges pieces. curves first, with all straights following
 arrangePieces :: (Num a) => [[a]] -> [[a]]
 arrangePieces [] = error "arrangePieces: list was empty\n"
